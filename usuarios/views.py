@@ -26,6 +26,10 @@ def cadastro(request):
             return redirect('/usuarios/cadastro')
         
         # fazer: validar se usuário ja existe
+        aux = User.objects.get(username=request.POST['username'])
+        if aux:
+            messages.add_message(request, constants.ERROR, 'usuário ja cadastrado')
+            return redirect('/usuarios/cadastro')
         
         try:
             # Username deve ser único!
